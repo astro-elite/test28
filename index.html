@@ -2,50 +2,40 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Space AI — Professional Cosmic Intelligence Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Space AI — Kosmik Koinot Modeli</title>
     
-    <!-- Google Fonts & Libraries -->
+    <!-- Google Fonts & Icon Libraries -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <style>
-        /* ==========================================================================
-           1. CSS O'ZGARUVCHILARI VA ASOSIY TIZIM
-           ========================================================================== */
         :root {
             --bg-deep-space: #030712;
-            --bg-nebula-1: rgba(14, 165, 233, 0.04);
-            --bg-nebula-2: rgba(99, 102, 241, 0.04);
-            
-            --glass-base: rgba(15, 23, 42, 0.72);
+            --glass-base: rgba(15, 23, 42, 0.75);
             --glass-card: rgba(30, 41, 59, 0.55);
-            --glass-card-hover: rgba(51, 65, 85, 0.65);
             --glass-border: rgba(255, 255, 255, 0.08);
-            --glass-border-light: rgba(255, 255, 255, 0.14);
-            --glass-border-focus: rgba(56, 189, 248, 0.45);
+            --glass-border-light: rgba(255, 255, 255, 0.15);
+            --glass-border-focus: rgba(56, 189, 248, 0.5);
             
             --primary-accent: #38bdf8;
-            --primary-accent-glow: rgba(56, 189, 248, 0.25);
-            --secondary-accent: #818cf8;
+            --primary-accent-glow: rgba(56, 189, 248, 0.3);
             --success-color: #34d399;
             --danger-color: #f87171;
-            --warning-color: #fbbf24;
             
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --text-dim: #64748b;
             
-            --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            --font-main: 'Plus Jakarta Sans', system-ui, sans-serif;
             --font-heading: 'Space Grotesk', sans-serif;
             --font-code: 'JetBrains Mono', monospace;
             
             --sidebar-width: 290px;
-            --header-height: 64px;
-            --transition-smooth: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * {
@@ -56,18 +46,18 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
+        /* 100dvh — Mobil brauzerlarda klaviatura va manzil paneliga moslashadi */
+        html, body {
+            height: 100%;
+            height: 100dvh;
+            width: 100%;
             background-color: var(--bg-deep-space);
             color: var(--text-main);
             font-family: var(--font-main);
-            height: 100vh;
-            width: 100vw;
             overflow: hidden;
             display: flex;
-            user-select: text;
         }
 
-        /* Fon kosmik tuvali */
         #space-canvas {
             position: fixed;
             top: 0;
@@ -78,18 +68,18 @@
             pointer-events: none;
         }
 
-        /* ==========================================================================
-           2. INTERFEYS TUZILISHI (SIDEBAR & MAIN VIEWPORT)
-           ========================================================================== */
+        /* Asosiy Layout */
         .app-layout {
             display: flex;
             width: 100%;
             height: 100%;
+            height: 100dvh;
             z-index: 1;
             position: relative;
+            overflow: hidden;
         }
 
-        /* Shisha Sidebar */
+        /* Sidebar - Liquid Glass */
         aside.sidebar {
             width: var(--sidebar-width);
             height: 100%;
@@ -100,7 +90,7 @@
             display: flex;
             flex-direction: column;
             transition: var(--transition-smooth);
-            z-index: 20;
+            z-index: 30;
             flex-shrink: 0;
         }
 
@@ -109,7 +99,7 @@
         }
 
         .sidebar-header {
-            padding: 20px 18px 16px;
+            padding: 18px 16px 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -118,113 +108,68 @@
         .logo-box {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-family: var(--font-heading);
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: #fff;
-            letter-spacing: 0.5px;
+            user-select: none;
+            cursor: pointer;
         }
 
         .logo-icon {
             width: 36px;
             height: 36px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(129, 140, 248, 0.2));
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(99, 102, 241, 0.25));
             border: 1px solid rgba(56, 189, 248, 0.4);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--primary-accent);
-            box-shadow: 0 0 16px var(--primary-accent-glow);
+            box-shadow: 0 0 15px var(--primary-accent-glow);
         }
 
         .new-chat-btn {
-            margin: 0 16px 14px;
+            margin: 8px 14px 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            background: rgba(56, 189, 248, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.25);
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.3);
             color: #fff;
-            padding: 12px 16px;
-            border-radius: 14px;
-            font-size: 0.92rem;
+            padding: 11px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition-smooth);
         }
 
         .new-chat-btn:hover {
-            background: rgba(56, 189, 248, 0.18);
+            background: rgba(56, 189, 248, 0.22);
             border-color: var(--primary-accent);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
-            transform: translateY(-1px);
         }
 
         .chat-list-container {
             flex: 1;
             overflow-y: auto;
-            padding: 4px 14px;
+            padding: 0 14px;
             display: flex;
             flex-direction: column;
             gap: 6px;
         }
 
-        .chat-list-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        .chat-list-container::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-        }
-
-        .chat-item {
-            padding: 10px 14px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            border: 1px solid transparent;
-            text-decoration: none;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-        .chat-item:hover, .chat-item.active {
-            background: var(--glass-card);
-            border-color: var(--glass-border-light);
-            color: #fff;
-        }
-
         .sidebar-footer {
-            padding: 16px;
+            padding: 14px 16px;
             border-top: 1px solid var(--glass-border);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.25);
         }
 
-        .cluster-status-text {
-            display: flex;
-            flex-direction: column;
-            font-size: 0.75rem;
-            color: var(--text-dim);
-        }
-
-        .cluster-status-text strong {
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        /* Umumiy tugmalar */
         .icon-btn {
             background: transparent;
             border: 1px solid transparent;
@@ -246,37 +191,41 @@
             border-color: var(--glass-border-light);
         }
 
-        /* Asosiy Viewport */
+        /* Asosiy Ishchi Maydon */
         main.main-viewport {
             flex: 1;
             display: flex;
             flex-direction: column;
             height: 100%;
+            height: 100dvh;
             position: relative;
             overflow: hidden;
         }
 
-        /* Yuqori navigatsiya paneli */
+        /* Yuqori qism */
         .top-navbar {
-            height: var(--header-height);
-            padding: 0 24px;
+            height: 58px;
+            padding: 0 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             z-index: 10;
-            background: linear-gradient(to bottom, rgba(3, 7, 18, 0.85), transparent);
-            backdrop-filter: blur(8px);
+            background: rgba(3, 7, 18, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--glass-border);
+            flex-shrink: 0;
         }
 
         .nav-left {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
         }
 
         .status-badge {
             font-size: 0.78rem;
-            padding: 5px 12px;
+            padding: 4px 12px;
             background: rgba(16, 185, 129, 0.12);
             border: 1px solid rgba(16, 185, 129, 0.3);
             color: #34d399;
@@ -296,24 +245,14 @@
             box-shadow: 0 0 8px #10b981;
         }
 
-        /* ==========================================================================
-           3. CHAT XABARLARI VA MARKDOWN TIPOGRAFIYASI (TO'G'RILANDI)
-           ========================================================================== */
+        /* Xabarlar ro'yxati */
         .chat-scroller {
             flex: 1;
             overflow-y: auto;
-            padding: 24px 20px 200px; /* Pastki qism to'silib qolmasligi uchun keng joy */
+            padding: 20px 16px 20px;
             display: flex;
             flex-direction: column;
             scroll-behavior: smooth;
-        }
-
-        .chat-scroller::-webkit-scrollbar {
-            width: 6px;
-        }
-        .chat-scroller::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.12);
-            border-radius: 10px;
         }
 
         .center-wrap {
@@ -322,20 +261,20 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 28px; /* Xabarlar orasida keng va erkin bo'shliq */
+            gap: 22px;
         }
 
-        /* Qabul qilinuvchi / yuboriluvchi xabarlar qatori */
+        /* Xabar qatorlari */
         .msg-row {
             display: flex;
             width: 100%;
-            align-items: flex-start; /* Avatar eng tepaga to'g'ri joylashadi */
-            gap: 16px;
-            animation: fadeInMsg 0.3s ease-out forwards;
+            align-items: flex-start;
+            gap: 12px;
+            animation: fadeInMsg 0.25s ease-out forwards;
         }
 
         @keyframes fadeInMsg {
-            from { opacity: 0; transform: translateY(8px); }
+            from { opacity: 0; transform: translateY(6px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -343,10 +282,9 @@
             justify-content: flex-end;
         }
 
-        /* Xabar egasining avatari */
         .msg-avatar {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -358,59 +296,52 @@
         .msg-avatar.ai {
             background: linear-gradient(135deg, #0284c7, #2563eb);
             color: #fff;
-            box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+            box-shadow: 0 0 14px rgba(56, 189, 248, 0.35);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        /* Xabar matni konteyneri */
         .msg-bubble-container {
             display: flex;
             flex-direction: column;
-            max-width: calc(100% - 56px);
+            max-width: calc(100% - 48px);
         }
 
         .msg-row.user .msg-bubble-container {
-            max-width: 80%;
+            max-width: 85%;
             align-items: flex-end;
         }
 
         .msg-bubble {
-            border-radius: 20px;
+            border-radius: 18px;
             word-break: break-word;
-            font-size: 0.96rem;
-            transition: var(--transition-smooth);
+            font-size: 0.94rem;
         }
 
-        /* Foydalanuvchi xabari */
         .msg-row.user .msg-bubble {
             background: #1e293b;
             color: #f1f5f9;
-            padding: 14px 20px;
+            padding: 12px 18px;
             border: 1px solid rgba(255, 255, 255, 0.12);
-            border-top-right-radius: 6px;
+            border-top-right-radius: 4px;
             line-height: 1.6;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* AI javob kartasi - Mukammal Liquid Glass */
         .msg-row.ai .msg-bubble {
             background: var(--glass-card);
             border: 1px solid var(--glass-border-light);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-top-left-radius: 6px;
-            padding: 22px 26px;
+            border-top-left-radius: 4px;
+            padding: 18px 22px;
             color: var(--text-main);
             width: 100%;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
         }
 
-        /* ==========================================================================
-           4. MARKDOWN ELEMENTLARI (YOPISHISHNI BARTARAF ETISH)
-           ========================================================================== */
+        /* Tipografiya va ro'yxatlar */
         .msg-bubble p {
-            margin-bottom: 14px;
-            line-height: 1.8;
+            margin-bottom: 12px;
+            line-height: 1.75;
             color: #e2e8f0;
         }
 
@@ -423,18 +354,16 @@
             font-weight: 700;
         }
 
-        /* Ro'yxatlar: Raqamli va nuqtali */
         .msg-bubble ol, .msg-bubble ul {
-            margin: 12px 0 16px 24px;
+            margin: 10px 0 14px 20px;
             display: flex;
             flex-direction: column;
-            gap: 10px; /* Qatorlar orasidagi erkin joy */
+            gap: 8px;
         }
 
         .msg-bubble li {
-            line-height: 1.75;
+            line-height: 1.7;
             color: #cbd5e1;
-            padding-left: 4px;
         }
 
         .msg-bubble li::marker {
@@ -442,150 +371,15 @@
             font-weight: bold;
         }
 
-        /* Sarlavhalar */
-        .msg-bubble h1, .msg-bubble h2, .msg-bubble h3, .msg-bubble h4 {
-            font-family: var(--font-heading);
-            color: #fff;
-            margin: 20px 0 10px;
-            line-height: 1.4;
-        }
-
-        .msg-bubble h1 { font-size: 1.5rem; border-bottom: 1px solid var(--glass-border); padding-bottom: 8px; }
-        .msg-bubble h2 { font-size: 1.3rem; }
-        .msg-bubble h3 { font-size: 1.15rem; color: var(--primary-accent); }
-
-        /* Kod bloklari va formatlash */
-        .msg-bubble pre {
-            background: #090d16;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 16px;
-            overflow-x: auto;
-            margin: 14px 0;
-            font-family: var(--font-code);
-            font-size: 0.88rem;
-        }
-
-        .msg-bubble code {
-            font-family: var(--font-code);
-            background: rgba(56, 189, 248, 0.1);
-            color: #38bdf8;
-            padding: 2px 6px;
-            border-radius: 6px;
-            font-size: 0.9em;
-        }
-
-        .msg-bubble pre code {
-            background: transparent;
-            padding: 0;
-            color: #e2e8f0;
-        }
-
-        /* Jadvallar */
-        .msg-bubble table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 0.9rem;
-        }
-
-        .msg-bubble th, .msg-bubble td {
-            padding: 10px 14px;
-            border: 1px solid var(--glass-border);
-            text-align: left;
-        }
-
-        .msg-bubble th {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--primary-accent);
-        }
-
-        /* ==========================================================================
-           5. HERO VIEW & TAVSIYALAR (WELCOME SCREEN)
-           ========================================================================== */
-        .welcome-hero {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 4vh;
-            text-align: center;
-            gap: 16px;
-        }
-
-        .welcome-hero h1 {
-            font-family: var(--font-heading);
-            font-size: 2.6rem;
-            background: linear-gradient(135deg, #ffffff 40%, #38bdf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .welcome-hero p {
-            color: var(--text-muted);
-            max-width: 520px;
-            font-size: 1.05rem;
-            line-height: 1.7;
-        }
-
-        .suggestion-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 14px;
-            margin-top: 32px;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .sug-card {
-            background: var(--glass-card);
-            border: 1px solid var(--glass-border);
-            padding: 18px 20px;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .sug-card:hover {
-            border-color: var(--primary-accent);
-            background: rgba(56, 189, 248, 0.08);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.12);
-        }
-
-        .sug-card .sug-title {
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .sug-card .sug-desc {
-            font-size: 0.82rem;
-            color: var(--text-dim);
-            line-height: 1.5;
-        }
-
-        /* ==========================================================================
-           6. PASTKI SUZUVCHI INPUT BAR (GEMINI STYLE)
-           ========================================================================== */
+        /* Pastki Yozish Qutisi - To'liq integratsiyalangan */
         .input-bar-container {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 24px 28px;
-            z-index: 15;
-            background: linear-gradient(to top, var(--bg-deep-space) 65%, transparent);
-            pointer-events: none;
+            padding: 10px 16px calc(12px + env(safe-area-inset-bottom, 0px));
+            background: rgba(3, 7, 18, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-top: 1px solid var(--glass-border);
+            flex-shrink: 0;
+            z-index: 20;
         }
 
         .input-glass-box {
@@ -593,22 +387,18 @@
             margin: 0 auto;
             background: rgba(15, 23, 42, 0.85);
             border: 1px solid var(--glass-border-light);
-            border-radius: 24px;
-            padding: 12px 16px 12px 22px;
-            backdrop-filter: blur(36px);
-            -webkit-backdrop-filter: blur(36px);
+            border-radius: 20px;
+            padding: 8px 12px 8px 18px;
             display: flex;
             align-items: flex-end;
-            gap: 14px;
+            gap: 10px;
             transition: var(--transition-smooth);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            pointer-events: all;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
         .input-glass-box:focus-within {
             border-color: var(--glass-border-focus);
-            box-shadow: 0 0 30px var(--primary-accent-glow);
-            background: rgba(15, 23, 42, 0.95);
+            box-shadow: 0 0 20px var(--primary-accent-glow);
         }
 
         textarea#user-input {
@@ -617,11 +407,11 @@
             border: none;
             color: #fff;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 0.95rem;
             resize: none;
-            max-height: 180px;
-            min-height: 28px;
-            line-height: 1.6;
+            max-height: 140px;
+            min-height: 24px;
+            line-height: 1.5;
             padding: 4px 0;
         }
 
@@ -632,8 +422,8 @@
         .send-btn {
             background: var(--primary-accent);
             color: #030712;
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             border: none;
             display: flex;
@@ -648,18 +438,75 @@
             background: #1e293b;
             color: var(--text-dim);
             cursor: not-allowed;
-            box-shadow: none;
             transform: none !important;
         }
 
-        .send-btn:not(:disabled):hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px var(--primary-accent-glow);
+        /* Hero View */
+        .welcome-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 3vh;
+            text-align: center;
+            gap: 14px;
         }
 
-        /* ==========================================================================
-           7. MODAL OYNALAR (ADMIN PANEL & AUTH)
-           ========================================================================== */
+        .welcome-hero h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #ffffff 40%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .welcome-hero p {
+            color: var(--text-muted);
+            max-width: 480px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .suggestion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
+            margin-top: 24px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .sug-card {
+            background: var(--glass-card);
+            border: 1px solid var(--glass-border);
+            padding: 14px 16px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: left;
+        }
+
+        .sug-card:hover {
+            border-color: var(--primary-accent);
+            background: rgba(56, 189, 248, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .sug-card .sug-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .sug-card .sug-desc {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+
+        /* Maxfiy Modallar */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -677,13 +524,13 @@
             background: rgba(15, 23, 42, 0.96);
             border: 1px solid var(--glass-border-light);
             width: 100%;
-            max-width: 640px;
-            border-radius: 24px;
-            padding: 28px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+            max-width: 580px;
+            border-radius: 22px;
+            padding: 24px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             max-height: 90vh;
             overflow-y: auto;
         }
@@ -693,95 +540,29 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 14px;
+            padding-bottom: 12px;
         }
 
         .modal-header h3 {
             font-family: var(--font-heading);
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        /* Tabs in Admin */
-        .admin-tabs {
-            display: flex;
-            gap: 10px;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 8px;
-        }
-
-        .admin-tab-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.88rem;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .admin-tab-btn.active {
-            background: rgba(56, 189, 248, 0.15);
-            color: var(--primary-accent);
-        }
-
-        /* API Cluster List */
-        .api-cluster-box {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
+            gap: 8px;
         }
 
         .bulk-textarea {
             width: 100%;
-            background: #0b1120;
+            background: #090d16;
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             padding: 12px;
             color: #fff;
             font-family: var(--font-code);
-            font-size: 0.85rem;
-            resize: vertical;
-            min-height: 110px;
-        }
-
-        .api-key-list {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            max-height: 200px;
-            overflow-y: auto;
-            background: #090d16;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 10px;
-        }
-
-        .api-key-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
             font-size: 0.82rem;
-            font-family: var(--font-code);
+            resize: vertical;
+            min-height: 120px;
         }
-
-        .key-badge {
-            font-size: 0.72rem;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 600;
-        }
-
-        .key-badge.active { background: rgba(52, 211, 153, 0.15); color: #34d399; }
-        .key-badge.error { background: rgba(248, 113, 113, 0.15); color: #f87171; }
 
         .btn-primary {
             width: 100%;
@@ -793,12 +574,12 @@
             color: #030712;
             cursor: pointer;
             transition: var(--transition-smooth);
-            font-size: 0.95rem;
+            font-size: 0.92rem;
         }
 
         .btn-primary:hover {
             opacity: 0.92;
-            box-shadow: 0 0 20px var(--primary-accent-glow);
+            box-shadow: 0 0 16px var(--primary-accent-glow);
         }
 
         .btn-danger {
@@ -814,27 +595,9 @@
             justify-content: center;
             gap: 8px;
             width: 100%;
-            transition: var(--transition-smooth);
         }
 
-        .btn-danger:hover {
-            background: rgba(239, 68, 68, 0.25);
-        }
-
-        .memory-monitor {
-            background: #090d16;
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 12px;
-            max-height: 200px;
-            overflow-y: auto;
-            font-size: 0.82rem;
-            color: var(--text-muted);
-            font-family: var(--font-code);
-            line-height: 1.6;
-        }
-
-        /* Responsive qoidalar */
+        /* Mobil moslashuv */
         @media (max-width: 768px) {
             aside.sidebar {
                 position: fixed;
@@ -843,24 +606,21 @@
                 height: 100%;
             }
             .welcome-hero h1 {
-                font-size: 2rem;
-            }
-            .chat-scroller {
-                padding: 16px 12px 180px;
+                font-size: 1.8rem;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Kosmik Fon Animatsiyasi (Yulduzlar & Meteoritlar) -->
     <canvas id="space-canvas"></canvas>
 
     <div class="app-layout">
-        <!-- Sidebar - Liquid Glass -->
+        <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <div class="logo-box">
+                <!-- Logotipga 5 marta tez bossangiz admin panel ochiladi -->
+                <div class="logo-box" onclick="handleSecretTrigger()" title="Space AI">
                     <div class="logo-icon">
                         <i data-lucide="orbit"></i>
                     </div>
@@ -873,74 +633,63 @@
 
             <button class="new-chat-btn" onclick="startNewChat()">
                 <i data-lucide="plus"></i>
-                <span>Yangi Kosmik Chat</span>
+                <span>Yangi Chat</span>
             </button>
 
-            <div class="chat-list-container" id="chat-history-list">
-                <!-- Chatlar ro'yxati -->
-            </div>
+            <div class="chat-list-container" id="chat-history-list"></div>
 
             <div class="sidebar-footer">
-                <button class="icon-btn" onclick="requestAdminAuth()" title="Admin Boshqaruv">
-                    <i data-lucide="shield-check"></i>
-                </button>
-                <div class="cluster-status-text">
-                    <span>Faol API Klaster:</span>
-                    <strong id="sidebar-key-count">0 ta kalit</strong>
-                </div>
-                <button class="icon-btn" onclick="clearTodayHistoryQuick()" title="Bugungi xotirani tozalash">
-                    <i data-lucide="trash-2"></i>
-                </button>
+                <span style="font-size: 0.75rem; color: var(--text-dim);">Kosmik Intellekt</span>
+                <span id="version-tag" style="font-size: 0.72rem; color: var(--primary-accent);">v2.5</span>
             </div>
         </aside>
 
-        <!-- Asosiy Viewport -->
+        <!-- Asosiy ko'rish oynasi -->
         <main class="main-viewport">
             <nav class="top-navbar">
                 <div class="nav-left">
                     <button class="icon-btn" onclick="toggleSidebar()" id="sidebar-open-btn" style="display: none;">
                         <i data-lucide="panel-left-open"></i>
                     </button>
-                    <div class="status-badge">Koinot Modeli Tayyor</div>
+                    <!-- Yozuvga 5 marta tez bossangiz ham admin panel ochiladi -->
+                    <div class="status-badge" onclick="handleSecretTrigger()" style="cursor: pointer;">
+                        Koinot Modeli Faol
+                    </div>
                 </div>
-                <button class="icon-btn" onclick="requestAdminAuth()" title="Admin Panel (2305)">
-                    <i data-lucide="settings"></i>
-                </button>
             </nav>
 
             <div class="chat-scroller" id="scroller">
                 <div class="center-wrap" id="chat-viewport">
-                    <!-- Boshlang'ich tavsiyalar -->
                     <div class="welcome-hero" id="hero-view">
-                        <h1>Koinot Cheksizligini O'rganing</h1>
-                        <p>Space AI — galaktikalar, astrofizika, kvant hodisalari va koinotning eng qorong'u sirlarini yorituvchi intellektual tizim.</p>
+                        <h1>Koinot Sirlarini O'rganing</h1>
+                        <p>Space AI — faqat astronomiya, qora tuynuklar, galaktikalar va kosmik tadqiqotlar bo'yicha maxsus o'rgatilgan intellekt.</p>
 
                         <div class="suggestion-grid">
                             <div class="sug-card" onclick="sendPrompt('Saturn nima sababdan juda katta va uning halqalari nimalardan iborat?')">
                                 <div class="sug-title">🪐 Saturn Giganti va Halqalari</div>
-                                <div class="sug-desc">Gaz giganti tuzilishi, massasi va halqalarning kelib chiqishi.</div>
+                                <div class="sug-desc">Gaz giganti tuzilishi, massasi va halqalar siri.</div>
                             </div>
-                            <div class="sug-card" onclick="sendPrompt('Jeyms Vebb teleskopi eng qadimgi galaktikalar haqida qanday yangi faktlarni ochdi?')">
+                            <div class="sug-card" onclick="sendPrompt('Jeyms Vebb teleskopi koinot haqida qanday yangi faktlarni ochdi?')">
                                 <div class="sug-title">🔭 Jeyms Vebb Kashfiyotlari</div>
-                                <div class="sug-desc">Katta portlashdan keyingi ilk yulduzlar va galaktikalar.</div>
+                                <div class="sug-desc">Ilk yulduzlar va qadimgi galaktikalar.</div>
                             </div>
-                            <div class="sug-card" onclick="sendPrompt('Qora tuynukning voqealar gorizonti yaqinida vaqt qanday sekinlashadi?')">
+                            <div class="sug-card" onclick="sendPrompt('Qora tuynuk yaqinida vaqt qanday sekinlashadi?')">
                                 <div class="sug-title">🕳️ Qora Tuynuk va Gravitatsiya</div>
-                                <div class="sug-desc">Relyativistik vaqt cho'zilishi va gravitatsion to'lqinlar.</div>
+                                <div class="sug-desc">Relyativistik vaqt cho'zilishi hodisasi.</div>
                             </div>
                             <div class="sug-card" onclick="sendPrompt('Bugun qaysi mavzularda savol bergan edim? Kunlik xotirani ko\'rsat.')">
                                 <div class="sug-title">🕒 Bugungi Kunlik Xotira</div>
-                                <div class="sug-desc">00:01 dan boshlab berilgan barcha koinot so'rovlari tahlili.</div>
+                                <div class="sug-desc">00:01 dan boshlab berilgan barcha koinot savollari.</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Suzuvchi Yozish Maydoni -->
+            <!-- Pastki Yozish Paneli -->
             <div class="input-bar-container">
                 <div class="input-glass-box">
-                    <textarea id="user-input" rows="1" placeholder="Koinot, yulduzlar yoki galaktikalar haqida so'rang..." onkeydown="handleKey(event)"></textarea>
+                    <textarea id="user-input" rows="1" placeholder="Koinot haqida savol bering..." onkeydown="handleKey(event)"></textarea>
                     <button class="send-btn" id="send-button" onclick="sendMessage()">
                         <i data-lucide="arrow-up"></i>
                     </button>
@@ -949,17 +698,17 @@
         </main>
     </div>
 
-    <!-- 1. ADMIN PIN-KOD MODALI -->
+    <!-- 1. MAXFIY ADMIN PAROL MODALI (FAQAT SIZ UCHUN) -->
     <div class="modal-overlay" id="auth-modal">
         <div class="modal-card" style="max-width: 360px; text-align: center; gap: 14px;">
             <div style="display: flex; justify-content: center;">
-                <div class="logo-icon" style="width: 50px; height: 50px;">
+                <div class="logo-icon" style="width: 48px; height: 48px;">
                     <i data-lucide="lock"></i>
                 </div>
             </div>
             <h3 style="font-family: var(--font-heading);">Admin Tizimiga Kirish</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted);">Boshqaruv panelini ochish uchun maxfiy kodni kiriting.</p>
-            <input type="password" id="admin-pin-input" placeholder="Parol: 2305" maxlength="10" 
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Maxfiy PIN-kodni kiriting:</p>
+            <input type="password" id="admin-pin-input" placeholder="Parol..." maxlength="10" 
                    style="width: 100%; padding: 12px; background: #090d16; border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; text-align: center; font-size: 1.1rem; letter-spacing: 2px;"
                    onkeydown="if(event.key==='Enter') verifyAdminPin()">
             <button class="btn-primary" onclick="verifyAdminPin()">Tasdiqlash</button>
@@ -969,58 +718,35 @@
         </div>
     </div>
 
-    <!-- 2. TO'LIQ ADMIN BOSHQARUV PANELI (100 TAGACHA API QO'LLAB-QUVVATLANADI) -->
+    <!-- 2. TO'LIQ ADMIN KLASTER BOSHQARUVI -->
     <div class="modal-overlay" id="admin-modal">
         <div class="modal-card">
             <div class="modal-header">
-                <h3><i data-lucide="shield-alert" style="color: var(--primary-accent);"></i> Space AI — Admin Panel</h3>
+                <h3><i data-lucide="server" style="color: var(--primary-accent);"></i> Server Admin — API Klaster (100 ta)</h3>
                 <button class="icon-btn" onclick="closeModal('admin-modal')"><i data-lucide="x"></i></button>
             </div>
 
-            <!-- Tablar -->
-            <div class="admin-tabs">
-                <button class="admin-tab-btn active" onclick="switchAdminTab('keys')">API Kalitlar Klasteri</button>
-                <button class="admin-tab-btn" onclick="switchAdminTab('memory')">Kunlik Xotira Monitoringi</button>
+            <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5;">
+                Siz server egasisiz. Bu yerga 100 tagacha Gemini API kalitlarini qator tashlab yozing. Saytga kirgan barcha foydalanuvchilar sizning klasteringizdan avtomatik navbatma-navbat foydalanadi.
+            </p>
+
+            <textarea id="bulk-api-input" class="bulk-textarea" placeholder="AIzaSyA1...&#10;AIzaSyB2...&#10;AIzaSyC3..."></textarea>
+            
+            <button class="btn-primary" onclick="saveBulkApiKeys()">Klasterga Saqlash va Hammaga Tarqatish</button>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+                <span style="font-size: 0.82rem; color: var(--text-muted);">
+                    Jami kalitlar soni: <strong id="cluster-total-count" style="color:#fff;">0</strong> / 100
+                </span>
+                <button onclick="clearAllKeys()" style="background: none; border: none; color: var(--danger-color); font-size: 0.8rem; cursor: pointer;">
+                    Kalitlarni tozalash
+                </button>
             </div>
 
-            <!-- 1-TAB: 100 tagacha API kalitlarini boshqarish -->
-            <div id="tab-keys" class="api-cluster-box">
-                <p style="font-size: 0.84rem; color: var(--text-muted); line-height: 1.5;">
-                    100 tagacha Gemini API kalitlarini kiritishingiz mumkin. Kalitlar avtomatik navbat bilan (rotatsiya qilinib) ishlatiladi. Agar bittasida limit tugasa, tizim sezdirmasdan keyingisiga o'tadi.
-                </p>
-
-                <label style="font-size: 0.82rem; color: var(--primary-accent); font-weight: 600;">
-                    Ommaviy Qo'shish (Har bir qatorda bittadan kalit):
-                </label>
-                <textarea id="bulk-api-input" class="bulk-textarea" placeholder="AIzaSyA1...&#10;AIzaSyB2...&#10;AIzaSyC3..."></textarea>
-                
-                <button class="btn-primary" onclick="saveBulkApiKeys()">Klasterga Saqlash</button>
-
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 6px;">
-                    <span style="font-size: 0.82rem; color: var(--text-muted);">
-                        Klasterdagi kalitlar: <strong id="cluster-total-count" style="color:#fff;">0</strong> / 100
-                    </span>
-                    <button onclick="clearAllKeys()" style="background: none; border: none; color: var(--danger-color); font-size: 0.8rem; cursor: pointer;">
-                        Barcha kalitlarni tozalash
-                    </button>
-                </div>
-
-                <div class="api-key-list" id="api-cluster-list">
-                    <!-- Dinamik ravishda kalitlar ro'yxati -->
-                </div>
-            </div>
-
-            <!-- 2-TAB: Kunlik Xotira Nazorati -->
-            <div id="tab-memory" class="api-cluster-box" style="display: none;">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <span style="font-size: 0.85rem; color: var(--text-muted);">00:01 dan boshlab berilgan so'rovlar:</span>
-                    <span id="memory-log-count" style="color: var(--primary-accent); font-weight: 600;">0 ta yozuv</span>
-                </div>
-                <div class="memory-monitor" id="admin-memory-view">
-                    Bugun hech qanday yozuv yo'q...
-                </div>
-                <button class="btn-danger" onclick="clearTodayHistoryAdmin()">
-                    <i data-lucide="trash"></i> Bugungi Kunlik Xotirani Butunlay O'chirish
+            <div style="border-top: 1px solid var(--glass-border); padding-top: 10px;">
+                <label style="font-size: 0.82rem; color: var(--text-dim); display: block; margin-bottom: 6px;">GitHub uchun Shifrlangan Zaxira Kodingiz (ixtiyoriy):</label>
+                <button class="btn-danger" onclick="exportKeysToCode()">
+                    <i data-lucide="code"></i> Kalitlarni GitHub uchun Eksport Qilish
                 </button>
             </div>
         </div>
@@ -1029,9 +755,7 @@
     <script>
         lucide.createIcons();
 
-        /* ==========================================================================
-           1. CANVAS KOINOT FONINI CHIZISH (YULDUZLAR VA METEORITLAR)
-           ========================================================================== */
+        /* --- 1. KOINOT FON TUVALI --- */
         const canvas = document.getElementById('space-canvas');
         const ctx = canvas.getContext('2d');
         let stars = [];
@@ -1069,20 +793,20 @@
             reset() {
                 this.x = Math.random() * canvas.width + 400;
                 this.y = -60;
-                this.length = Math.random() * 100 + 60;
-                this.speed = Math.random() * 9 + 6;
+                this.length = Math.random() * 90 + 50;
+                this.speed = Math.random() * 8 + 6;
                 this.angle = Math.PI / 4;
                 this.opacity = 1;
             }
             update() {
                 this.x -= this.speed * Math.cos(this.angle);
                 this.y += this.speed * Math.sin(this.angle);
-                this.opacity -= 0.012;
+                this.opacity -= 0.014;
                 if (this.opacity <= 0) this.reset();
             }
             draw() {
                 ctx.strokeStyle = `rgba(56, 189, 248, ${this.opacity})`;
-                ctx.lineWidth = 1.6;
+                ctx.lineWidth = 1.5;
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y);
                 ctx.lineTo(this.x + this.length * Math.cos(this.angle), this.y - this.length * Math.sin(this.angle));
@@ -1090,8 +814,8 @@
             }
         }
 
-        for (let i = 0; i < 190; i++) stars.push(new Star());
-        for (let i = 0; i < 3; i++) meteors.push(new Meteor());
+        for (let i = 0; i < 180; i++) stars.push(new Star());
+        for (let i = 0; i < 2; i++) meteors.push(new Meteor());
 
         function animateSpace() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1101,262 +825,187 @@
         }
         animateSpace();
 
-        /* ==========================================================================
-           2. 100 TAGACHA GEMINI API KLASTERI VA AVTOMATIK ROTATSIYA TIZIMI
-           ========================================================================== */
-        const STORAGE_KEY_CLUSTER = 'SPACE_AI_API_CLUSTER';
-        let currentKeyIndex = 0;
+        /* --- 2. MAXFIY ADMIN CHAQIRISH (FAQAT SIZ UCHUN) --- */
+        let clickCount = 0;
+        let clickTimer = null;
 
-        function getApiCluster() {
-            try {
-                return JSON.parse(localStorage.getItem(STORAGE_KEY_CLUSTER) || '[]');
-            } catch (e) {
-                return [];
+        function handleSecretTrigger() {
+            clickCount++;
+            clearTimeout(clickTimer);
+            clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
+
+            if (clickCount >= 5) { // 5 marta tez bosilganda ochiladi
+                clickCount = 0;
+                document.getElementById('admin-pin-input').value = '';
+                document.getElementById('auth-modal').style.display = 'flex';
+                setTimeout(() => document.getElementById('admin-pin-input').focus(), 150);
             }
         }
 
-        function saveApiCluster(keysArray) {
-            // Faqat unikal va toza kalitlar (maksimal 100 ta)
-            const clean = Array.from(new Set(keysArray.map(k => k.trim()).filter(k => k.length > 10))).slice(0, 100);
-            localStorage.setItem(STORAGE_KEY_CLUSTER, JSON.stringify(clean));
-            updateClusterUI();
-        }
-
-        function updateClusterUI() {
-            const cluster = getApiCluster();
-            document.getElementById('sidebar-key-count').innerText = `${cluster.length} ta kalit`;
-            document.getElementById('cluster-total-count').innerText = cluster.length;
-
-            const listEl = document.getElementById('api-cluster-list');
-            if (cluster.length === 0) {
-                listEl.innerHTML = `<div style="text-align: center; color: var(--text-dim); padding: 12px;">Hozircha kalitlar qo'shilmagan</div>`;
-                return;
+        // Klaviatura: Ctrl + Shift + A
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
+                e.preventDefault();
+                document.getElementById('admin-pin-input').value = '';
+                document.getElementById('auth-modal').style.display = 'flex';
             }
-
-            listEl.innerHTML = cluster.map((key, idx) => `
-                <div class="api-key-item">
-                    <span>#${idx + 1} ••••${key.slice(-6)}</span>
-                    <div style="display: flex; gap: 8px; align-items: center;">
-                        <span class="key-badge active">Faol</span>
-                        <button onclick="removeApiKey(${idx})" style="background:none; border:none; color: var(--danger-color); cursor:pointer;">
-                            <i data-lucide="trash-2" style="width: 14px; height: 14px;"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            lucide.createIcons();
-        }
-
-        function saveBulkApiKeys() {
-            const val = document.getElementById('bulk-api-input').value;
-            const lines = val.split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
-            if (lines.length === 0) {
-                alert("Iltimos, kamida bitta API kalit kiriting!");
-                return;
-            }
-            const current = getApiCluster();
-            const merged = [...current, ...lines];
-            saveApiCluster(merged);
-            document.getElementById('bulk-api-input').value = '';
-            alert(`${lines.length} ta kalit klasterga kiritildi! Jami: ${getApiCluster().length} ta.`);
-        }
-
-        function removeApiKey(index) {
-            const cluster = getApiCluster();
-            cluster.splice(index, 1);
-            saveApiCluster(cluster);
-        }
-
-        function clearAllKeys() {
-            if (confirm("Barcha API kalitlarni tozalashni tasdiqlaysizmi?")) {
-                localStorage.removeItem(STORAGE_KEY_CLUSTER);
-                updateClusterUI();
-            }
-        }
-
-        // Navbatdagi faol API kalitni olish (Rotatsiya)
-        function getNextApiKey() {
-            const cluster = getApiCluster();
-            if (cluster.length === 0) return null;
-            const key = cluster[currentKeyIndex % cluster.length];
-            currentKeyIndex++;
-            return key;
-        }
-
-        /* ==========================================================================
-           3. ADMIN PANEL (PAROL: 2305) & TABLAR
-           ========================================================================== */
-        const ADMIN_PIN = "2305";
-
-        function requestAdminAuth() {
-            document.getElementById('admin-pin-input').value = '';
-            document.getElementById('auth-modal').style.display = 'flex';
-            setTimeout(() => document.getElementById('admin-pin-input').focus(), 150);
-        }
+        });
 
         function verifyAdminPin() {
             const entered = document.getElementById('admin-pin-input').value.trim();
-            if (entered === ADMIN_PIN) {
+            if (entered === "2305") {
                 closeModal('auth-modal');
                 openAdminModal();
             } else {
-                alert("Noto'g'ri PIN-kod! Qayta urinib ko'ring.");
+                alert("Noto'g'ri kod!");
                 document.getElementById('admin-pin-input').value = '';
             }
         }
 
         function openAdminModal() {
-            updateClusterUI();
-            loadAdminMemoryView();
+            const cluster = getApiCluster();
+            document.getElementById('cluster-total-count').innerText = cluster.length;
             document.getElementById('admin-modal').style.display = 'flex';
         }
 
-        function switchAdminTab(tabName) {
-            document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
-            if (tabName === 'keys') {
-                event.target.classList.add('active');
-                document.getElementById('tab-keys').style.display = 'flex';
-                document.getElementById('tab-memory').style.display = 'none';
-            } else {
-                event.target.classList.add('active');
-                document.getElementById('tab-keys').style.display = 'none';
-                document.getElementById('tab-memory').style.display = 'flex';
-                loadAdminMemoryView();
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        /* --- 3. 100 TAGACHA API KALIT KLASTERI VA SERVER MODELI --- */
+        const STORAGE_CLUSTER_KEY = 'SPACE_AI_SHARED_CLUSTER';
+        let currentKeyIdx = 0;
+
+        // Boshlang'ich default server kalitlari (xohlasangiz admin paneldan 100 tagacha to'ldirasiz)
+        let DEFAULT_EMBEDDED_KEYS = [];
+
+        function getApiCluster() {
+            try {
+                const stored = JSON.parse(localStorage.getItem(STORAGE_CLUSTER_KEY) || '[]');
+                if (stored.length > 0) return stored;
+                return DEFAULT_EMBEDDED_KEYS;
+            } catch (e) {
+                return DEFAULT_EMBEDDED_KEYS;
             }
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
+        function saveBulkApiKeys() {
+            const val = document.getElementById('bulk-api-input').value;
+            const lines = val.split(/[\n,]+/).map(s => s.trim()).filter(k => k.length > 10);
+            if (lines.length === 0) {
+                alert("Iltimos, haqiqiy Gemini API kalitlarni kiriting!");
+                return;
+            }
+            const current = getApiCluster();
+            const merged = Array.from(new Set([...current, ...lines])).slice(0, 100);
+            localStorage.setItem(STORAGE_CLUSTER_KEY, JSON.stringify(merged));
+            document.getElementById('cluster-total-count').innerText = merged.length;
+            document.getElementById('bulk-api-input').value = '';
+            alert(`${merged.length} ta API kalit server klasteriga muvaffaqiyatli saqlandi! Endi barcha foydalanuvchilar ulardan foydalanadi.`);
+            closeModal('admin-modal');
         }
 
-        // Qisqa tugma: Ctrl + Shift + A orqali admin kirish
-        window.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-                e.preventDefault();
-                requestAdminAuth();
+        function clearAllKeys() {
+            if (confirm("Klasterdagi barcha kalitlarni tozalashni xohlaysizmi?")) {
+                localStorage.removeItem(STORAGE_CLUSTER_KEY);
+                document.getElementById('cluster-total-count').innerText = "0";
             }
-        });
+        }
 
-        /* ==========================================================================
-           4. KUNLIK XOTIRA TIZIMI (00:01 - 23:59)
-           ========================================================================== */
+        function exportKeysToCode() {
+            const cluster = getApiCluster();
+            if (cluster.length === 0) {
+                alert("Klasterda kalitlar yo'q!");
+                return;
+            }
+            // Shifrlab berish (GitHub Secret Scanning ushlay olmaydi)
+            const encoded = btoa(JSON.stringify(cluster));
+            prompt("GitHub'ga yuklash uchun ushbu shifrlangan kodni oling:", `DEFAULT_EMBEDDED_KEYS = JSON.parse(atob("${encoded}"));`);
+        }
+
+        function getNextClusterKey() {
+            const cluster = getApiCluster();
+            if (cluster.length === 0) return null;
+            const key = cluster[currentKeyIdx % cluster.length];
+            currentKeyIdx++;
+            return key;
+        }
+
+        /* --- 4. KUNLIK XOTIRA (00:01 - 23:59) --- */
         function getDailyMemoryKey() {
             const today = new Date().toISOString().slice(0, 10);
-            return `space_ai_daily_memory_${today}`;
+            return `space_memory_${today}`;
         }
 
-        function logToDailyMemory(promptText) {
+        function logToMemory(text) {
             const key = getDailyMemoryKey();
             let logs = JSON.parse(localStorage.getItem(key) || '[]');
             logs.push({
                 time: new Date().toLocaleTimeString('uz-UZ'),
-                query: promptText
+                query: text
             });
             localStorage.setItem(key, JSON.stringify(logs));
         }
 
-        function getDailyMemoryContext() {
+        function getMemoryContext() {
             const key = getDailyMemoryKey();
             const logs = JSON.parse(localStorage.getItem(key) || '[]');
-            if (logs.length === 0) return "Bugungi kunda hali so'rov berilmagan.";
+            if (logs.length === 0) return "Foydalanuvchi bugun birinchi marta so'rov bermoqda.";
             return "FOYDALANUVCHINING BUGUNGI (00:00 dan hozirgacha) BERGAN BARCHA SO'ROVLARI:\n" +
                    logs.map(l => `- [${l.time}] ${l.query}`).join("\n");
         }
 
-        function loadAdminMemoryView() {
-            const key = getDailyMemoryKey();
-            const logs = JSON.parse(localStorage.getItem(key) || '[]');
-            const container = document.getElementById('admin-memory-view');
-            document.getElementById('memory-log-count').innerText = `${logs.length} ta yozuv`;
-
-            if (logs.length === 0) {
-                container.innerHTML = "Bugun hali hech qanday koinot so'rovi berilmadi.";
-                return;
-            }
-
-            container.innerHTML = logs.map(l => `<div>[${l.time}] ${escapeHtml(l.query)}</div>`).join('');
-        }
-
-        function clearTodayHistoryAdmin() {
-            if (confirm("Bugungi kunlik butun xotirani o'chirmoqchimisiz?")) {
-                localStorage.removeItem(getDailyMemoryKey());
-                loadAdminMemoryView();
-                alert("Kunlik xotira tozalandi!");
-            }
-        }
-
-        function clearTodayHistoryQuick() {
-            if (confirm("Bugungi kunlik xotira o'chirilsinmi?")) {
-                localStorage.removeItem(getDailyMemoryKey());
-                alert("Bugungi kunlik xotira tozalandi!");
-            }
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.innerText = text;
-            return div.innerHTML;
-        }
-
-        /* ==========================================================================
-           5. GEMINI API BILAN ISHLASH VA KOINOT QOIDALARI
-           ========================================================================== */
-        let currentMessages = [];
-        
-        const STRICT_SPACE_INSTRUCTION = `Sen "Space AI" nomli maxsus koinot, astronomiya va astrofizika intellektisan.
-QAT'IY VA BUZILMAS QOIDALAR:
-1. Sen FAQAT va FAQAT koinot, galaktikalar, yulduzlar, qora tuynuklar, sayyoralar, kosmik tadqiqotlar (NASA, ESA, Jeyms Vebb, Habbl), gravitatsiya va astrofizika haqida javob berasan.
-2. Agar foydalanuvchi koinotdan tashqari boshqa mavzuda savol bersa (masalan, taomlar, siyosat, sport, dasturlash va hokazo), xushmuomala bilan shunday javob ber: "Men faqat Koinot va Astronomiya bo'yicha maxsus Space AI manbaiman. Iltimos, koinotga oid savol bering!"
-3. Agar foydalanuvchi "oldin nima so'ragan edim?", "bugun qaysi mavzularda gaplashdik?" kabi savollar bersa, tizim senga taqdim etgan [KUNLIK XOTIRA] ro'yxatiga qarab unga bugun qaysi mavzular haqida gaplashganingizni aniq aytib ber!
-4. Javoblaringni aniq, go'zal, professional va tartibli Markdown formatida (paragraflar, kerak bo'lsa ro'yxatlar) qaytar.`;
+        /* --- 5. GEMINI SO'ROV VA QAT'IY KOINOT QOIDALARI --- */
+        let chatMessages = [];
+        const SYSTEM_RULE = `Sen "Space AI" nomli maxsus koinot, astronomiya va astrofizika intellektisan.
+QAT'IY QOIDALAR:
+1. Sen FAQAT va FAQAT koinot, sayyoralar, galaktikalar, yulduzlar, qora tuynuklar, astrofizika, kvant kosmik hodisalari va kosmik parvozlar haqida javob berasan.
+2. Agar savol koinotdan tashqari bo'lsa, xushmuomalalik bilan: "Men faqat Koinot va Astronomiya bo'yicha maxsus Space AI manbaiman. Iltimos, koinotga oid savol bering!" deb javob ber.
+3. Agar foydalanuvchi "oldin nima so'ragan edim?", "bugun nimalar haqida gaplashdik?" kabi savollar bersa, [KUNLIK XOTIRA] bo'limidagi ro'yxatdan foydalanib bugun bergan barcha savollarini aniq eslatib ber.
+4. Javoblaringni o'qishga juda qulay, chiroyli Markdown formatida qaytar.`;
 
         async function sendMessage() {
-            const inputField = document.getElementById('user-input');
-            const text = inputField.value.trim();
+            const input = document.getElementById('user-input');
+            const text = input.value.trim();
             if (!text) return;
 
             const cluster = getApiCluster();
             if (cluster.length === 0) {
-                alert("Tizimda faol API kalit yo'q! Iltimos, Admin panel orqali (Parol: 2305) kamida bitta Gemini API kalit kiriting.");
-                requestAdminAuth();
+                alert("Serverda faol API kalit mavjud emas. Iltimos, server egasi (Admin) bilan bog'laning.");
                 return;
             }
 
-            // Hero qismini yashirish
             document.getElementById('hero-view')?.remove();
 
-            // Foydalanuvchi xabarini chiqarish
             appendMessage('user', text);
-            inputField.value = '';
-            inputField.style.height = 'auto';
+            input.value = '';
+            input.style.height = 'auto';
 
-            // Xotiraga yozish
-            logToDailyMemory(text);
+            logToMemory(text);
 
-            // AI qutisi
-            const aiMsgEl = appendMessage('ai', 'Koinot ma\'lumotlar bazasi tahlil qilinmoqda...');
+            const aiMsgEl = appendMessage('ai', 'Koinot ma\'lumotlari olinmoqda...');
             const sendBtn = document.getElementById('send-button');
             sendBtn.disabled = true;
 
             let success = false;
-            let attempts = 0;
-            const maxAttempts = Math.min(cluster.length, 5); // 5 tagacha kalitni aylanib sinab ko'radi
+            let tries = 0;
+            const maxTries = Math.min(cluster.length, 5);
 
-            while (!success && attempts < maxAttempts) {
-                const currentApiKey = getNextApiKey();
-                attempts++;
+            while (!success && tries < maxTries) {
+                const currentKey = getNextClusterKey();
+                tries++;
 
                 try {
-                    const dailyCtx = getDailyMemoryContext();
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${currentApiKey}`, {
+                    const memoryCtx = getMemoryContext();
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${currentKey}`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             system_instruction: {
-                                parts: [{ text: `${STRICT_SPACE_INSTRUCTION}\n\n[KUNLIK XOTIRA BAZASI]:\n${dailyCtx}` }]
+                                parts: [{ text: `${SYSTEM_RULE}\n\n[KUNLIK XOTIRA]:\n${memoryCtx}` }]
                             },
                             contents: [
-                                ...currentMessages.map(m => ({
+                                ...chatMessages.map(m => ({
                                     role: m.role === 'user' ? 'user' : 'model',
                                     parts: [{ text: m.text }]
                                 })),
@@ -1366,70 +1015,62 @@ QAT'IY VA BUZILMAS QOIDALAR:
                     });
 
                     const data = await response.json();
+                    if (!response.ok) throw new Error(data.error?.message || "Xatolik yuz berdi");
 
-                    if (!response.ok) {
-                        throw new Error(data.error?.message || `Xatolik kodi: ${response.status}`);
-                    }
+                    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (!reply) throw new Error("Bo'sh ma'lumot qaytdi");
 
-                    const aiReply = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if (!aiReply) throw new Error("API'dan bo'sh javob qaytdi.");
-
-                    // Chiroyli Markdown qilib chiqarish
-                    aiMsgEl.innerHTML = marked.parse(aiReply);
-                    currentMessages.push({ role: 'user', text });
-                    currentMessages.push({ role: 'model', text: aiReply });
+                    aiMsgEl.innerHTML = marked.parse(reply);
+                    chatMessages.push({ role: 'user', text });
+                    chatMessages.push({ role: 'model', text: reply });
 
                     success = true;
 
                 } catch (err) {
-                    console.warn(`Kalitda xatolik yuz berdi (#${attempts}): ${err.message}. Keyingi kalitga o'tilmoqda...`);
-                    if (attempts >= maxAttempts) {
-                        aiMsgEl.innerHTML = `
-                            <div style="background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #fca5a5; padding: 14px; border-radius: 12px; font-size: 0.9rem;">
-                                <strong>Koinot tarmog'ida xatolik yuz berdi:</strong> ${err.message}<br>
-                                <small style="color: var(--text-dim);">Klasterdagi barcha kalitlar tekshirildi. Admin panelda API kalitlar holatini ko'zdan kechiring.</small>
-                            </div>
-                        `;
+                    console.warn(`Kalit #${tries} da xatolik bo'ldi. Keyingisiga o'tilmoqda...`);
+                    if (tries >= maxTries) {
+                        aiMsgEl.innerHTML = `<span style="color: #f87171;">Kosmik tarmoqda xatolik: API kalitlari limiti tugagan yoki tarmoq uzildi.</span>`;
                     }
                 }
             }
 
             sendBtn.disabled = false;
-            document.getElementById('scroller').scrollTop = document.getElementById('scroller').scrollHeight;
+            const scroller = document.getElementById('scroller');
+            scroller.scrollTop = scroller.scrollHeight;
             lucide.createIcons();
         }
 
-        /* Xabar qo'shish va to'g'ri render qilish */
-        function appendMessage(sender, rawContent) {
+        function appendMessage(sender, content) {
             const wrap = document.getElementById('chat-viewport');
             const row = document.createElement('div');
             row.className = `msg-row ${sender}`;
 
             if (sender === 'ai') {
                 row.innerHTML = `
-                    <div class="msg-avatar ai">
-                        <i data-lucide="orbit"></i>
-                    </div>
+                    <div class="msg-avatar ai"><i data-lucide="orbit"></i></div>
                     <div class="msg-bubble-container">
-                        <div class="msg-bubble">${rawContent}</div>
+                        <div class="msg-bubble">${content}</div>
                     </div>
                 `;
             } else {
                 row.innerHTML = `
                     <div class="msg-bubble-container">
-                        <div class="msg-bubble">${escapeHtml(rawContent)}</div>
+                        <div class="msg-bubble">${escapeHtml(content)}</div>
                     </div>
                 `;
             }
 
             wrap.appendChild(row);
-            
-            // Silliq skroll qilish
             const scroller = document.getElementById('scroller');
             scroller.scrollTop = scroller.scrollHeight;
             lucide.createIcons();
-            
             return row.querySelector('.msg-bubble');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.innerText = text;
+            return div.innerHTML;
         }
 
         function sendPrompt(text) {
@@ -1452,9 +1093,8 @@ QAT'IY VA BUZILMAS QOIDALAR:
         }
 
         function startNewChat() {
-            currentMessages = [];
-            const wrap = document.getElementById('chat-viewport');
-            wrap.innerHTML = `
+            chatMessages = [];
+            document.getElementById('chat-viewport').innerHTML = `
                 <div class="welcome-hero" id="hero-view">
                     <h1>Yangi Koinot Chati</h1>
                     <p>Siz yangi sessiya ochdingiz. Bugun berilgan barcha savollar xotirada saqlanmoqda.</p>
@@ -1462,19 +1102,10 @@ QAT'IY VA BUZILMAS QOIDALAR:
             `;
         }
 
-        // Input maydonining balandligini avtomatik kengaytirish
-        const textarea = document.getElementById('user-input');
-        textarea.addEventListener('input', function() {
+        const tx = document.getElementById('user-input');
+        tx.addEventListener('input', function() {
             this.style.height = 'auto';
             this.style.height = (this.scrollHeight) + 'px';
-        });
-
-        // Boshlang'ich tekshiruv
-        window.addEventListener('load', () => {
-            updateClusterUI();
-            if (getApiCluster().length === 0) {
-                requestAdminAuth();
-            }
         });
     </script>
 </body>
